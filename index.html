@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro Trading - Astrological Stock Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-star"></i> Astro Trading</h1>
+                <p>Astrological Stock Market Analysis</p>
+            </div>
+        </header>
+
+        <!-- Main Application -->
+        <main class="main-app">
+            <!-- Birth Chart Form Section -->
+            <section id="birth-form-section" class="section active">
+                <div class="card">
+                    <div class="card__header">
+                        <h2><i class="fas fa-user"></i> Enter Your Birth Details</h2>
+                        <p class="section-description">Provide your birth information to get personalized astrological trading insights</p>
+                    </div>
+                    <div class="card__body">
+                        <form id="birth-form" class="birth-form">
+                            <div class="form-group">
+                                <label class="form-label" for="fullName">
+                                    <i class="fas fa-user"></i> Full Name
+                                </label>
+                                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="birthDate">
+                                        <i class="fas fa-calendar"></i> Birth Date
+                                    </label>
+                                    <input type="date" id="birthDate" name="birthDate" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="birthTime">
+                                        <i class="fas fa-clock"></i> Birth Time
+                                    </label>
+                                    <input type="time" id="birthTime" name="birthTime" class="form-control" step="60" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="birthPlace">
+                                    <i class="fas fa-map-marker-alt"></i> Birth Place
+                                </label>
+                                <input type="text" id="birthPlace" name="birthPlace" class="form-control" placeholder="City, Country" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--primary btn--full-width">
+                                <i class="fas fa-magic"></i> Generate Analysis
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Section -->
+            <section id="loading-section" class="section">
+                <div class="loading-container">
+                    <div class="loading-spinner">
+                        <i class="fas fa-star fa-spin"></i>
+                    </div>
+                    <h3>Calculating Your Astrological Insights</h3>
+                    <p id="loading-text">Analyzing planetary positions...</p>
+                </div>
+            </section>
+
+            <!-- Results Navigation -->
+            <nav id="results-nav" class="results-nav">
+                <button class="nav-btn active" data-section="astrological-analysis">
+                    <i class="fas fa-star-of-life"></i>
+                    <span>Astro Analysis</span>
+                </button>
+                <button class="nav-btn" data-section="sector-analysis">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Sectors</span>
+                </button>
+                <button class="nav-btn" data-section="trading-recommendations">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Trading</span>
+                </button>
+            </nav>
+
+            <!-- Astrological Analysis Section -->
+            <section id="astrological-analysis" class="section results-section">
+                <div class="user-info">
+                    <h2 id="user-greeting">Welcome back!</h2>
+                    <p id="analysis-date"></p>
+                </div>
+
+                <div class="trading-suitability card">
+                    <div class="card__header">
+                        <h3><i class="fas fa-thumbs-up"></i> Today's Trading Suitability</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="suitability-score">
+                            <div class="score-circle" id="suitability-circle">
+                                <span id="suitability-score">78</span>
+                                <small>Score</small>
+                            </div>
+                            <div class="suitability-details">
+                                <div class="status" id="suitability-status">Good</div>
+                                <p id="suitability-description">Favorable conditions for trading today</p>
+                                <div class="best-hours">
+                                    <strong>Best Trading Hours:</strong>
+                                    <span id="best-hours">10:00 AM - 12:00 PM, 2:00 PM - 3:15 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="planetary-positions card">
+                    <div class="card__header">
+                        <h3><i class="fas fa-globe"></i> Planetary Positions & Influence</h3>
+                    </div>
+                    <div class="card__body">
+                        <div id="planetary-grid" class="planetary-grid">
+                            <!-- Planetary data will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sector Analysis Section -->
+            <section id="sector-analysis" class="section results-section">
+                <div class="card">
+                    <div class="card__header">
+                        <h3><i class="fas fa-industry"></i> Sector Analysis for Today</h3>
+                        <p>Sectors getting astrological support based on planetary influences</p>
+                    </div>
+                    <div class="card__body">
+                        <div id="sector-list" class="sector-list">
+                            <!-- Sector recommendations will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trading Recommendations Section -->
+            <section id="trading-recommendations" class="section results-section">
+                <div class="card">
+                    <div class="card__header">
+                        <h3><i class="fas fa-chart-line"></i> Stock Trading Recommendations</h3>
+                        <p>Stocks meeting both astrological and technical criteria</p>
+                    </div>
+                    <div class="card__body">
+                        <div id="stock-recommendations" class="stock-recommendations">
+                            <!-- Stock recommendations will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-disclaimer card">
+                    <div class="card__body">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Risk Disclaimer</h4>
+                        <p>This analysis combines astrological insights with technical indicators. Always do your own research and consider your risk tolerance before making any investment decisions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reset Button -->
+            <div class="reset-container">
+                <button id="reset-btn" class="btn btn--outline">
+                    <i class="fas fa-refresh"></i> Try New Analysis
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
