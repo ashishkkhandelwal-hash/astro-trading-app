@@ -1,22 +1,43 @@
 const fetch = require('node-fetch');
 
-exports.handler = async function(event, context) {
-  const apiKey = process.env.UPSTOX_API_KEY;
-  const accessToken = process.env.UPSTOX_ACCESS_TOKEN;
+exports.handler = async function (event, context) {
+  try {
+    const apiKey = process.env.UPSTOX_API_KEY;          // From Netlify env
+    const accessToken = process.env.UPSTOX_ACCESS_TOKEN; // From Netlify env
 
-  // Use accessToken in API headers for authentication
-  const response = await fetch('https://api.upstox.com/market-data-endpoint', {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'x-api-key': apiKey,
-    },
-  });
+    // Example: Reliance Industries instrument key
+    // Get from Upstox master instruments list for your symbols
+    const instrumentKey = "NSE_EQ|INE002A01018"; // Replace with desired stock
 
-  const data = await response.json();
+    const url = `https://api.upstox.com/v2/market/quotes?instrument_key=${instrumentKey}`;
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(data),
-  };
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+        "x-api-key": apiKey,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Upstox API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data),
+    };
+
+  } catch (error) {
+    console.error("Error fetching market data:", error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message }),
+    };
+  }
 };
+
+
 
